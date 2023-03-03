@@ -10,7 +10,10 @@ ports:
     description: Port 3000 for the frontend
     port: 3000
     onOpen: open-preview
-
+  - name: notebook
+    description: 8888 for notebook
+    port: 8888
+    
 image:
-  file: gitpod.Dockerfile
+  file: .gitpod.Dockerfile
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
