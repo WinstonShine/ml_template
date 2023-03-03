@@ -9,9 +9,9 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 # Fix: https://github.com/hadolint/hadolint/wiki/DL4006
 # Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
+#add gitpod user
+RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod
 USER root
-
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     # for cython: https://cython.readthedocs.io/en/latest/src/quickstart/install.html
@@ -19,8 +19,8 @@ RUN apt-get update --yes && \
     ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER ${NB_UID}
-
+USER gitpod
+WORKDIR /workspace
 # Install Python 3 packages
 RUN arch=$(uname -m) && \
     if [ "${arch}" == "aarch64" ]; then \
@@ -34,16 +34,4 @@ RUN arch=$(uname -m) && \
     'scipy' \
     'sqlalchemy' \
     'numpy' && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
-# Import matplotlib the first time to build the font cache.
-ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
-
-RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
-    fix-permissions "/home/${NB_USER}"
-  
-USER ${NB_UID}
-
-WORKDIR "${HOME}"
+    mamba clean --all -f -y
