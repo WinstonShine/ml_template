@@ -9,11 +9,12 @@ EXPOSE 8888:8888/tcp
 ENV PATH="${PATH}:/usr/bin/python3"
 ENV PATH="${PATH}:/usr/bin/pip"
 
-#update apt-get packages and install mamba
-USER ${USER}
+#update apt-get packages
 RUN sudo apt-get update --yes && \
     sudo apt-get install --yes --no-install-recommends python3 python3-pip
 
+USER ${USER}
+WORKDIR /workspace
 #install requirements
 RUN pip install \
     ipykernel \
@@ -29,4 +30,3 @@ RUN pip install \
 ENV XDG_CACHE_HOME="/home/${USER}/.cache/"
 RUN MPLBACKEND=Agg python3 -c "import matplotlib.pyplot"
 
-WORKDIR /workspace
