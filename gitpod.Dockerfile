@@ -11,7 +11,9 @@ ENV PATH="${PATH}:/usr/bin/pip"
 
 #update apt-get packages
 RUN sudo apt-get update --yes && \
-    sudo apt-get install --yes --no-install-recommends python3 python3-pip
+    sudo apt-get install --yes --no-install-recommends python3 \
+                                                       python3-pip \
+                                                       pandoc 
 
 USER ${USER}
 WORKDIR /workspace
