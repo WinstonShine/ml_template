@@ -10,7 +10,6 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 # Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #add gitpod user
-RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod
 USER root
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
@@ -19,7 +18,6 @@ RUN apt-get update --yes && \
     ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER gitpod
 WORKDIR /workspace
 # Install Python 3 packages
 RUN arch=$(uname -m) && \
