@@ -15,10 +15,6 @@ USER root
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     # for cython: https://cython.readthedocs.io/en/latest/src/quickstart/install.html
-    build-essential \
-    # for latex labels
-    cm-super \
-    dvipng \
     # for matplotlib anim
     ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -33,60 +29,12 @@ RUN arch=$(uname -m) && \
         export G_SLICE=always-malloc; \
     fi && \
     mamba install --quiet --yes \
-    'altair' \
-    'beautifulsoup4' \
-    'bokeh' \
-    'bottleneck' \
-    'cloudpickle' \
-    'conda-forge::blas=*=openblas' \
-    'cython' \
-    'dask' \
-    'dill' \
-    'h5py' \
-    'ipympl'\
-    'ipywidgets' \
     'matplotlib-base' \
-    'numba' \
-    'numexpr' \
     'pandas' \
-    'patsy' \
-    'protobuf' \
-    'pytables' \
-    'scikit-image' \
-    'scikit-learn' \
     'scipy' \
-    'seaborn' \
     'sqlalchemy' \
-    'statsmodels' \
-    'sympy' \
-    'widgetsnbextension'\
-    'contextily'\
-    'joblib'\
-    'cartopy'\
-    'plotly'\
-    'geopandas'\
-    'cufflinks-py'\
-    'yaml'\
-    'folium'\
-    'geopy'\
-    'requests'\
-    'ipython'\
-    'numpy'\
-    'cycler'\
-    'graphviz'\
-    'tqdm'\
-    'flask'\
-    'xarray'\
-    'xlrd' && \
+    'numpy' && \
     mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
-# Install facets which does not have a pip or conda package at the moment
-WORKDIR /tmp
-RUN git clone https://github.com/PAIR-code/facets.git && \
-    jupyter nbextension install facets/facets-dist/ --sys-prefix && \
-    rm -rf /tmp/facets && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
@@ -95,9 +43,7 @@ ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
 
 RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
     fix-permissions "/home/${NB_USER}"
-   
-RUN pip install python-congress otter-grader
-
+  
 USER ${NB_UID}
 
 WORKDIR "${HOME}"
