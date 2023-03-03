@@ -23,7 +23,8 @@ RUN pip install \
     sqlalchemy \
     numpy \
     notebook \
-    scikit-learn
+    scikit-learn && \
+    python3 -m ipykernel install --user
 
 ENV XDG_CACHE_HOME="/home/${USER}/.cache/"
 RUN MPLBACKEND=Agg python3 -c "import matplotlib.pyplot"
