@@ -5,8 +5,7 @@ ARG USER=gitpod
 USER root
 EXPOSE 8888:8888/tcp
 
-#install conda
-ENV CONDA_DIR=/opt/conda
+#set path for python&pip
 ENV PATH="${PATH}:/usr/bin/python3"
 ENV PATH="${PATH}:/usr/bin/pip"
 
@@ -17,6 +16,7 @@ RUN sudo apt-get update --yes && \
 
 #install requirements
 RUN pip install \
+    ipykernel \
     matplotlib \
     pandas \
     scipy \
