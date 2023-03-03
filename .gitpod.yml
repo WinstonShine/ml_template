@@ -15,5 +15,5 @@ ports:
     port: 8888
     
 image:
-  file: .gitpod.Dockerfile
+  file: gitpod.Dockerfile
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
