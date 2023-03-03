@@ -9,6 +9,8 @@ EXPOSE 8888:8888/tcp
 ENV PATH="${PATH}:/usr/bin/python3"
 ENV PATH="${PATH}:/usr/bin/pip"
 
+WORKDIR /workspace
+
 #update apt-get packages
 RUN sudo apt-get update --yes && \
     sudo apt-get install --yes --no-install-recommends python3 \
@@ -16,7 +18,7 @@ RUN sudo apt-get update --yes && \
                                                        pandoc 
 
 USER ${USER}
-WORKDIR /workspace
+
 #install requirements
 RUN pip install \
     ipykernel \
@@ -25,7 +27,7 @@ RUN pip install \
     scipy \
     sqlalchemy \
     numpy \
-    notebook \
+    notebook --user \
     scikit-learn && \
     python3 -m ipykernel install --user
 
