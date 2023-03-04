@@ -5,10 +5,6 @@ ARG USER=gitpod
 USER root
 EXPOSE 8888:8888/tcp
 
-#set path for python&pip
-ENV PATH="${PATH}:/usr/bin/python3"
-ENV PATH="${PATH}:/usr/bin/pip"
-
 WORKDIR /workspace
 
 #update apt-get packages
