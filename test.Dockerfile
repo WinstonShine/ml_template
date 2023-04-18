@@ -31,4 +31,5 @@ RUN MPLBACKEND=Agg python3 -c "import matplotlib.pyplot"
 #create and edit jupyter notebook config file
 RUN jupyter notebook --generate-config && \
     echo "c.NotebookApp.allow_origin = '*'" > /home/gitpod/.jupyter/jupyter_notebook_config.py && \
-    echo "c.NotebookApp.open_browser = False" > /home/gitpod/.jupyter/jupyter_notebook_config.py
+    echo "c.NotebookApp.open_browser = False" > /home/gitpod/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.ip = '0.0.0.0'" > /home/gitpod/.jupyter/jupyter_notebook_config.py
