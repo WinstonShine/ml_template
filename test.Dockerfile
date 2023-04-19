@@ -1,20 +1,18 @@
-#image for Machine Learning in python/jupyter notebooks
+# image for Machine Learning in python/jupyter notebooks
 FROM gitpod/workspace-base
 ARG DEBIAN_FRONTEND=noninteractive
 ARG USER=gitpod
-USER root
 EXPOSE 8888:8888/tcp
 
+USER $USER
 WORKDIR /workspace
 
-#update apt-get packages
+# update apt-get packages
 RUN sudo apt-get update --yes && \
     sudo apt-get install --yes --no-install-recommends python3 \
                                                        python3-pip
 
-USER ${USER}
-
-#install requirements
+# install requirements
 RUN pip install --no-cache-dir \
     ipykernel \
     matplotlib \
@@ -25,6 +23,7 @@ RUN pip install --no-cache-dir \
     notebook \
     scikit-learn
 
+# Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME="/home/${USER}/.cache/"
 RUN MPLBACKEND=Agg python3 -c "import matplotlib.pyplot"
 
